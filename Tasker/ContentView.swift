@@ -24,67 +24,87 @@ struct ContentView: View {
     // SwiftData part to update
     @State private var tasks : [Task] = sampleTask.sorted(by: {$1.date > $0.date })
     
+    // Create Task Layout
+    @State private var createNewTask: Bool = false
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading) {
-                Text("Calendar")
-                    .font(.system(size: 36, weight: .semibold))
-                
-                // Week Slider
-                TabView(selection: $currentWeekIndex,
-                        content:  {
-                    ForEach(weekSlider.indices, id: \.self) {index in
-                        let week = weekSlider[index]
-                        
-                        weekView(week)
-                            .tag(index)
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading) {
+                    Text("Calendar")
+                        .font(.system(size: 36, weight: .semibold))
+                    
+                    // Week Slider
+                    TabView(selection: $currentWeekIndex,
+                            content:  {
+                        ForEach(weekSlider.indices, id: \.self) {index in
+                            let week = weekSlider[index]
+                            
+                            weekView(week)
+                                .tag(index)
+                        }
+                    })
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .frame(height: 110)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background {
+                   
+                    Rectangle().fill(.gray.opacity(0.1))
+                        .clipShape(.rect(bottomLeadingRadius: 30, bottomTrailingRadius: 30))
+                        .ignoresSafeArea()
+                    
+                }
+                .onChange(of: currentWeekIndex, initial: false) { oldValue, newValue in
+                    if newValue == 0 || newValue == (weekSlider.count - 1 ) {
+                        createWeek = true
                     }
-                })
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .frame(height: 110)
+                }
+                
+                ScrollView(.vertical) {
+                    VStack {
+                        // Task View
+                        taskView()
+                    }
+                    .padding(.top)
+                    .hSpacing(.center)
+                    .vSpacing(.center)
+                }
             }
-            .padding()
+            .vSpacing(.top)
             .frame(maxWidth: .infinity)
-            .background {
-               
-                Rectangle().fill(.gray.opacity(0.1))
-                    .clipShape(.rect(bottomLeadingRadius: 30, bottomTrailingRadius: 30))
-                    .ignoresSafeArea()
-                
-            }
-            .onChange(of: currentWeekIndex, initial: false) { oldValue, newValue in
-                if newValue == 0 || newValue == (weekSlider.count - 1 ) {
-                    createWeek = true
+            .onAppear() {
+                if weekSlider.isEmpty {
+                    let currentWeek = Date().fetchWeek()
+                    
+                    if let firstDate = currentWeek.first?.date {
+                        weekSlider.append(firstDate.createPreviousWeek())
+                    }
+                    
+                    weekSlider.append(currentWeek)
+                    
+                    if let lastDate = currentWeek.last?.date {
+                        weekSlider.append(lastDate.createNextWeek())
+                    }
                 }
-            }
-            
-            ScrollView(.vertical) {
-                VStack {
-                    // Task View
-                    taskView()
-                }
-                .padding(.top)
-                .hSpacing(.center)
-                .vSpacing(.center)
-            }
         }
-        .vSpacing(.top)
-        .frame(maxWidth: .infinity)
-        .onAppear() {
-            if weekSlider.isEmpty {
-                let currentWeek = Date().fetchWeek()
-                
-                if let firstDate = currentWeek.first?.date {
-                    weekSlider.append(firstDate.createPreviousWeek())
-                }
-                
-                weekSlider.append(currentWeek)
-                
-                if let lastDate = currentWeek.last?.date {
-                    weekSlider.append(lastDate.createNextWeek())
-                }
-            }
-        }
+            .overlay(alignment: .bottomTrailing, content: {
+                // Create New Task Button
+                Button(action: {
+                    createNewTask.toggle()
+                }, label: {
+                    Image(systemName: "plus")
+                        .imageScale(.large)
+                        .padding(26)
+                        .background(.black)
+                        .clipShape(Circle())
+                        .padding(.horizontal)
+                        .foregroundStyle(.white)
+                })
+                .fullScreenCover(isPresented: $createNewTask, content: {
+                    NewTask()
+                })
+            })
     }
     
     @ViewBuilder
