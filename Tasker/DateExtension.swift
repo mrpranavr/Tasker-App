@@ -20,6 +20,14 @@ extension Date {
         var date: Date
     }
     
+    var isSameHour: Bool {
+        return Calendar.current.compare(self, to: .init(), toGranularity: .hour) == .orderedSame
+    }
+    
+    var isPast: Bool {
+        return Calendar.current.compare(self, to: .init(), toGranularity: .hour) == .orderedAscending
+    }
+    
     // check if date is today
     var isToday: Bool {
         return Calendar.current.isDateInToday(self)

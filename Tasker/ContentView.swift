@@ -21,6 +21,9 @@ struct ContentView: View {
     //Animation namespace
     @Namespace private var animation
     
+    // SwiftData part to update
+    @State private var tasks : [Task] = sampleTask.sorted(by: {$1.date > $0.date })
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading) {
@@ -53,6 +56,16 @@ struct ContentView: View {
                 if newValue == 0 || newValue == (weekSlider.count - 1 ) {
                     createWeek = true
                 }
+            }
+            
+            ScrollView(.vertical) {
+                VStack {
+                    // Task View
+                    taskView()
+                }
+                .padding(.top)
+                .hSpacing(.center)
+                .vSpacing(.center)
             }
         }
         .vSpacing(.top)
@@ -143,6 +156,27 @@ struct ContentView: View {
                 weekSlider.append(lastDate.createNextWeek())
                 weekSlider.removeFirst()
                 currentWeekIndex = weekSlider.count - 2
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func taskView() -> some View {
+        VStack(alignment: .leading) {
+            ForEach($tasks) {
+                task in
+                TaskItem(task: task)
+                    .background(alignment: .leading, content: {
+                        if tasks.last?.id != task.id {
+                            Rectangle()
+                                .foregroundStyle(.gray)
+                                .clipShape(.rect(cornerRadius: 5))
+                                .padding(.vertical, 12)
+                                .frame(width: 2)
+                                .offset(x: 24, y: 45)
+                               
+                        }
+                    })
             }
         }
     }
