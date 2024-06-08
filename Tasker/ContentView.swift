@@ -22,7 +22,7 @@ struct ContentView: View {
     @Namespace private var animation
     
     // SwiftData part to update
-    @State private var tasks : [Task] = sampleTask.sorted(by: {$1.date > $0.date })
+    //@State private var tasks : [Task] = sampleTask.sorted(by: {$1.date > $0.date })
     
     // Create Task Layout
     @State private var createNewTask: Bool = false
@@ -64,9 +64,9 @@ struct ContentView: View {
                 ScrollView(.vertical) {
                     VStack {
                         // Task View
-                        taskView()
+                        TasksView(date: $currentDate )
                     }
-                    .padding(.top)
+                    .padding(.top, 30)
                     .hSpacing(.center)
                     .vSpacing(.center)
                 }
@@ -180,26 +180,6 @@ struct ContentView: View {
         }
     }
     
-    @ViewBuilder
-    func taskView() -> some View {
-        VStack(alignment: .leading) {
-            ForEach($tasks) {
-                task in
-                TaskItem(task: task)
-                    .background(alignment: .leading, content: {
-                        if tasks.last?.id != task.id {
-                            Rectangle()
-                                .foregroundStyle(.gray)
-                                .clipShape(.rect(cornerRadius: 5))
-                                .padding(.vertical, 12)
-                                .frame(width: 2)
-                                .offset(x: 24, y: 45)
-                               
-                        }
-                    })
-            }
-        }
-    }
 }
 
 #Preview {

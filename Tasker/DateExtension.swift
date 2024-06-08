@@ -20,7 +20,7 @@ extension Date {
         var date: Date
     }
     
-    var isSameHour: Bool {
+    var isSameTime: Bool {
         return Calendar.current.compare(self, to: .init(), toGranularity: .hour) == .orderedSame
     }
     

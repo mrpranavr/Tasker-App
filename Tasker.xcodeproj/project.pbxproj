@@ -17,6 +17,7 @@
 		C50E90402C0C53F800110AB9 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E903F2C0C53F800110AB9 /* DateExtension.swift */; };
 		C5C86F462C0D9A53001A0FFE /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C86F452C0D9A53001A0FFE /* TaskItem.swift */; };
 		C5C86F482C0DAEE2001A0FFE /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C86F472C0DAEE2001A0FFE /* NewTask.swift */; };
+		C5EF5CF52C14B984004B9CD7 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF5CF42C14B984004B9CD7 /* TasksView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		C50E903F2C0C53F800110AB9 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		C5C86F452C0D9A53001A0FFE /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		C5C86F472C0DAEE2001A0FFE /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
+		C5EF5CF42C14B984004B9CD7 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				C50E903B2C0C4C8100110AB9 /* Task.swift */,
 				C50E903D2C0C516700110AB9 /* +View.swift */,
 				C50E902F2C0C4C5600110AB9 /* ContentView.swift */,
+				C5EF5CF42C14B984004B9CD7 /* TasksView.swift */,
 				C5C86F472C0DAEE2001A0FFE /* NewTask.swift */,
 				C5C86F452C0D9A53001A0FFE /* TaskItem.swift */,
 				C50E90312C0C4C5700110AB9 /* Assets.xcassets */,
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C50DA0892C0CE0EB00C77699 /* OffsetKey.swift in Sources */,
+				C5EF5CF52C14B984004B9CD7 /* TasksView.swift in Sources */,
 				C50E903E2C0C516700110AB9 /* +View.swift in Sources */,
 				C50E90402C0C53F800110AB9 /* DateExtension.swift in Sources */,
 				C50E90302C0C4C5600110AB9 /* ContentView.swift in Sources */,

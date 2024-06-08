@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskItem: View {
     
-    @Binding var task: Task
+    @Bindable var task: Task
     
     var body: some View {
         HStack(alignment: .center, spacing: 15) {
@@ -49,7 +49,7 @@ struct TaskItem: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(task.tint.opacity(0.2))
+            .background(task.tintColor.opacity(0.2))
             .clipShape(.rect(cornerRadius: 20))
             
         }
@@ -61,10 +61,10 @@ struct TaskItem: View {
             return .green
         }
         
-        return task.date.isSameHour ? .indigo : (task.date.isPast ? .red : .black)
+        return task.date.isSameTime ? .indigo : (task.date.isPast ? .red : .black)
     }
 }
 
 #Preview {
-    TaskItem(task: .constant(sampleTask[0]))
+    ContentView()
 }
